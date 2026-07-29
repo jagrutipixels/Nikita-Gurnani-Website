@@ -145,7 +145,7 @@ export default function Home() {
         </AnimatePresence>
 
         {/* Text Area for Slider */}
-        <div className="absolute inset-y-0 left-0 right-12 md:right-32 flex flex-col justify-end pb-32 md:pb-40 pl-6 pr-6 md:pl-16 md:pr-24 z-10 pointer-events-none">
+        <div className="absolute inset-y-0 left-0 right-14 sm:right-20 md:right-32 flex flex-col justify-end pb-24 sm:pb-32 md:pb-40 pl-4 sm:pl-6 pr-2 sm:pr-6 md:pl-16 md:pr-24 z-10 pointer-events-none">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -155,16 +155,16 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="pointer-events-auto"
             >
-              <div className="flex items-center space-x-3 md:space-x-4 mb-4 md:mb-6">
-                <div className="w-6 md:w-8 h-[1px] bg-secondary" />
-                <span className="text-white/80 tracking-[0.2em] text-xs md:text-sm uppercase drop-shadow-md">{SLIDES[currentSlide].subtitle}</span>
+              <div className="flex items-center space-x-2 md:space-x-4 mb-3 md:mb-6">
+                <div className="w-4 md:w-8 h-[1px] bg-secondary" />
+                <span className="text-white/80 tracking-[0.2em] text-[10px] sm:text-xs md:text-sm uppercase drop-shadow-md">{SLIDES[currentSlide].subtitle}</span>
               </div>
-              <h1 className="text-3xl md:text-6xl lg:text-7xl font-sans font-bold leading-[1.1] mb-6 md:mb-8 text-white max-w-3xl drop-shadow-2xl tracking-tight [text-shadow:_0_2px_15px_rgb(0_0_0_/_60%)]">
+              <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-sans font-bold leading-[1.15] mb-4 md:mb-8 text-white max-w-3xl drop-shadow-2xl tracking-tight [text-shadow:_0_2px_15px_rgb(0_0_0_/_60%)]">
                 {SLIDES[currentSlide].title.split('\n').map((line, i) => <div key={i}>{line}</div>) }
               </h1>
               <Link 
                 to="/experience" 
-                className="inline-flex items-center text-secondary hover:text-white uppercase tracking-[0.2em] text-sm font-semibold transition-colors drop-shadow-md"
+                className="inline-flex items-center text-secondary hover:text-white uppercase tracking-[0.2em] text-xs md:text-sm font-semibold transition-colors drop-shadow-md"
               >
                 {SLIDES[currentSlide].linkText}
               </Link>
@@ -173,31 +173,33 @@ export default function Home() {
         </div>
 
         {/* Pagination & Arrows */}
-        <div className="absolute bottom-6 right-20 md:bottom-10 md:right-10 z-10 flex flex-col md:flex-row md:items-center items-end space-y-4 md:space-y-0 md:space-x-12">
-          <div className="flex items-center space-x-3 md:space-x-6">
+        <div className="absolute bottom-4 right-14 sm:bottom-6 sm:right-20 md:bottom-10 md:right-10 z-10 flex flex-col md:flex-row md:items-center items-end space-y-2 md:space-y-0 md:space-x-12">
+          <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-6">
             {SLIDES.map((_, i) => (
               <div 
                 key={i} 
                 onClick={() => setCurrentSlide(i)}
                 className={`flex items-center cursor-pointer transition-colors ${i === currentSlide ? 'text-secondary' : 'text-white/40 hover:text-white/80'}`}
               >
-                <span className="text-sm font-medium tracking-widest">{(i + 1).toString().padStart(2, '0')}</span>
+                <span className="text-xs sm:text-sm font-medium tracking-widest">{(i + 1).toString().padStart(2, '0')}</span>
                 {i === currentSlide && <div className="hidden md:block w-8 md:w-12 h-[1px] bg-secondary ml-3 md:ml-6" />}
               </div>
             ))}
           </div>
-          <div className="flex space-x-2">
+          <div className="flex space-x-1 sm:space-x-2">
             <button 
               onClick={prevSlide}
-              className="w-10 h-10 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors"
+              className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors"
+              aria-label="Previous Slide"
             >
-              <ChevronLeft size={20} className="text-white/70 hover:text-white" />
+              <ChevronLeft size={18} className="text-white/70 hover:text-white" />
             </button>
             <button 
               onClick={nextSlide}
-              className="w-10 h-10 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors"
+              className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors"
+              aria-label="Next Slide"
             >
-              <ChevronRight size={20} className="text-white/70 hover:text-white" />
+              <ChevronRight size={18} className="text-white/70 hover:text-white" />
             </button>
           </div>
         </div>
@@ -210,28 +212,28 @@ export default function Home() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'tween', duration: 0.6, ease: 'easeInOut' }}
-              className="absolute inset-0 bg-[#141517] z-30 flex flex-col md:flex-row"
+              className="absolute inset-0 bg-[#141517] z-30 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden pb-16 md:pb-0"
             >
               {CATEGORIES.map((cat, i) => (
                 <Link 
                   to="/experience" 
                   key={i} 
-                  className="flex-1 relative group cursor-pointer overflow-hidden border-b md:border-b-0 md:border-r border-[#ffffff15] last:border-b-0 md:last:border-r-0 h-1/5 md:h-full block"
+                  className="flex-1 relative group cursor-pointer overflow-hidden border-b md:border-b-0 md:border-r border-[#ffffff15] last:border-b-0 md:last:border-r-0 min-h-[120px] md:min-h-0 md:h-full block"
                 >
                   <img src={cat.image} className={`absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ${cat.position}`} referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c10] via-black/40 to-transparent md:bg-gradient-to-t md:from-[#0b0c10] md:via-black/20 md:to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-700" />
                   
-                  <div className="absolute bottom-6 md:bottom-12 left-4 md:left-8 pr-16 md:pr-24 flex flex-col md:flex-col md:justify-end md:items-start z-10 transition-transform duration-500 transform group-hover:-translate-y-2">
-                    <span className="text-3xl md:text-5xl font-bold text-white/40 mb-1 md:mb-4 group-hover:text-secondary group-hover:drop-shadow-lg transition-colors duration-500 [text-shadow:_0_2px_10px_rgb(0_0_0_/_80%)]">{(i + 1).toString().padStart(2, '0')}</span>
+                  <div className="absolute bottom-4 md:bottom-12 left-4 md:left-8 pr-12 md:pr-24 flex flex-col md:flex-col md:justify-end md:items-start z-10 transition-transform duration-500 transform group-hover:-translate-y-2">
+                    <span className="text-2xl md:text-5xl font-bold text-white/40 mb-1 md:mb-4 group-hover:text-secondary group-hover:drop-shadow-lg transition-colors duration-500 [text-shadow:_0_2px_10px_rgb(0_0_0_/_80%)]">{(i + 1).toString().padStart(2, '0')}</span>
                     <span className="text-sm md:text-2xl font-sans font-bold leading-tight group-hover:text-white transition-colors duration-500 [text-shadow:_0_2px_10px_rgb(0_0_0_/_80%)]">{cat.title}</span>
                   </div>
                 </Link>
               ))}
               
-              {/* Pagination indicators for categories overlay (dummy/aesthetic) */}
+              {/* Pagination indicators for categories overlay */}
               <div className="absolute top-10 right-10 hidden md:flex space-x-2 z-40 bg-black/40 rounded-full">
-                <button className="w-10 h-10 flex items-center justify-center hover:text-white transition-colors text-white/50"><ChevronLeft size={20} /></button>
-                <button className="w-10 h-10 flex items-center justify-center hover:text-white transition-colors text-white/50"><ChevronRight size={20} /></button>
+                <button className="w-10 h-10 flex items-center justify-center hover:text-white transition-colors text-white/50" aria-label="Previous Category"><ChevronLeft size={20} /></button>
+                <button className="w-10 h-10 flex items-center justify-center hover:text-white transition-colors text-white/50" aria-label="Next Category"><ChevronRight size={20} /></button>
               </div>
             </motion.div>
           )}
@@ -245,12 +247,12 @@ export default function Home() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'tween', duration: 0.6, ease: 'easeInOut' }}
-              className="absolute inset-0 bg-[#0d0e12] z-30 flex flex-col md:flex-row"
+              className="absolute inset-0 bg-[#0d0e12] z-30 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden"
             >
-              <div className="w-full md:w-1/2 h-[35%] md:h-full relative overflow-hidden">
+              <div className="w-full md:w-1/2 min-h-[220px] md:h-full relative overflow-hidden shrink-0">
                 <img src={IMAGES.about} className="w-full h-full object-cover opacity-80" referrerPolicy="no-referrer" />
               </div>
-              <div className="w-full md:w-1/2 h-[65%] md:h-full flex flex-col justify-center px-6 md:px-20 py-8 relative bg-[#111216] overflow-y-auto overflow-x-hidden pb-24 md:pb-8">
+              <div className="w-full md:w-1/2 flex flex-col justify-center px-6 md:px-20 py-8 relative bg-[#111216] overflow-y-auto overflow-x-hidden pb-24 md:pb-8">
                 <p className="text-secondary tracking-widest text-xs md:text-sm uppercase mb-3 md:mb-6 mt-4 md:mt-0 font-medium">About Me</p>
                 <h2 className="text-2xl md:text-5xl lg:text-6xl font-sans font-bold leading-tight mb-4 md:mb-8 text-white drop-shadow-sm">
                   My name is Niki,<br/>I'm a Makeup Artist.
@@ -263,11 +265,11 @@ export default function Home() {
                   READ MORE &gt;
                 </Link>
                 
-                <div className="absolute -bottom-8 md:-bottom-12 md:left-10 text-[6rem] md:text-[14rem] font-sans font-black text-white/[0.04] select-none pointer-events-none tracking-tighter">
+                <div className="absolute -bottom-8 md:-bottom-12 md:left-10 text-[5rem] sm:text-[6rem] md:text-[14rem] font-sans font-black text-white/[0.04] select-none pointer-events-none tracking-tighter overflow-hidden">
                   About
                 </div>
 
-                <div className="absolute bottom-10 right-10 flex text-sm font-medium tracking-widest space-x-6 text-white/50">
+                <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 flex text-xs md:text-sm font-medium tracking-widest space-x-4 md:space-x-6 text-white/50">
                    <span>01</span>
                    <span className="text-secondary">02</span>
                    <span>03</span>

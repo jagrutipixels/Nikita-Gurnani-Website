@@ -116,24 +116,24 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[90] bg-brand-bg pt-24 px-6 flex flex-col"
+            className="fixed inset-0 z-[90] bg-brand-bg pt-24 px-6 flex flex-col overflow-y-auto max-h-screen pb-12"
           >
-            <div className="flex flex-col space-y-6 mt-12 text-center h-full">
+            <div className="flex flex-col space-y-6 my-auto py-6 text-center">
               {navLinks.map((link) => (
                 <NavLink 
                   key={link.path} 
                   to={link.path}
                   className={({ isActive }) => 
-                    `text-2xl font-serif tracking-wide transition-colors ${isActive ? 'text-secondary' : 'text-primary'}`
+                    `text-xl md:text-2xl font-serif tracking-wide transition-colors ${isActive ? 'text-secondary' : 'text-primary'}`
                   }
                 >
                   {link.name}
                 </NavLink>
               ))}
-              <div className="pt-8">
+              <div className="pt-6">
                 <Link 
                   to="/contact" 
-                  className="inline-block px-10 py-4 border border-primary text-primary hover:bg-primary hover:text-brand-bg uppercase tracking-widest text-sm transition-colors"
+                  className="inline-block px-10 py-3.5 border border-primary text-primary hover:bg-primary hover:text-brand-bg uppercase tracking-widest text-xs md:text-sm transition-colors"
                 >
                   Contact Us
                 </Link>
