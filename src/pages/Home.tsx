@@ -110,11 +110,31 @@ export default function Home() {
 
       {/* Main Content Area */}
       <div 
-        className="flex-1 relative h-full bg-black overflow-hidden touch-pan-y"
+        className="flex-1 relative h-full bg-black overflow-hidden touch-pan-y w-full"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
+        {/* Mobile Quick Action Pills */}
+        <div className="md:hidden absolute top-4 right-4 z-30 flex items-center space-x-2">
+          <button 
+            onClick={() => setActivePanel(activePanel === 'categories' ? 'none' : 'categories')}
+            className={`px-3.5 py-1.5 rounded-full backdrop-blur-md text-[10px] tracking-widest uppercase font-medium border transition-all ${
+              activePanel === 'categories' ? 'bg-secondary text-brand-bg border-secondary shadow-lg' : 'bg-black/50 text-white/90 border-white/20'
+            }`}
+          >
+            {activePanel === 'categories' ? 'Close' : 'Categories'}
+          </button>
+          <button 
+            onClick={() => setActivePanel(activePanel === 'about' ? 'none' : 'about')}
+            className={`px-3.5 py-1.5 rounded-full backdrop-blur-md text-[10px] tracking-widest uppercase font-medium border transition-all ${
+              activePanel === 'about' ? 'bg-secondary text-brand-bg border-secondary shadow-lg' : 'bg-black/50 text-white/90 border-white/20'
+            }`}
+          >
+            {activePanel === 'about' ? 'Close' : 'About'}
+          </button>
+        </div>
+
         <AnimatePresence initial={false} mode="wait">
           <motion.div 
             key={currentSlide} 
@@ -139,13 +159,13 @@ export default function Home() {
               loading={currentSlide === 0 ? "eager" : "lazy"}
             />
             {/* Dark overlay specifically to match NOVO dark tone */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c10] via-black/50 to-transparent opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c10] via-black/40 to-transparent opacity-95" />
           </motion.div>
         </AnimatePresence>
 
         {/* Text Area for Slider */}
-        <div className="absolute inset-y-0 left-0 right-14 sm:right-20 md:right-32 flex flex-col justify-end pb-24 sm:pb-32 md:pb-40 pl-4 sm:pl-6 pr-2 sm:pr-6 md:pl-16 md:pr-24 z-10 pointer-events-none">
+        <div className="absolute inset-y-0 left-0 right-0 md:right-32 flex flex-col justify-end pb-24 sm:pb-32 md:pb-40 px-6 sm:px-8 md:pl-16 md:pr-24 z-10 pointer-events-none">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -155,16 +175,16 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="pointer-events-auto"
             >
-              <div className="flex items-center space-x-2 md:space-x-4 mb-3 md:mb-6">
-                <div className="w-4 md:w-8 h-[1px] bg-secondary" />
-                <span className="text-white/80 tracking-[0.2em] text-[10px] sm:text-xs md:text-sm uppercase drop-shadow-md">{SLIDES[currentSlide].subtitle}</span>
+              <div className="flex items-center space-x-2.5 md:space-x-4 mb-3 md:mb-6">
+                <div className="w-5 md:w-8 h-[1px] bg-secondary" />
+                <span className="text-secondary tracking-[0.25em] text-[11px] sm:text-xs md:text-sm uppercase font-medium drop-shadow-md">{SLIDES[currentSlide].subtitle}</span>
               </div>
-              <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-sans font-bold leading-[1.15] mb-4 md:mb-8 text-white max-w-3xl drop-shadow-2xl tracking-tight [text-shadow:_0_2px_15px_rgb(0_0_0_/_60%)]">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-sans font-bold leading-[1.18] mb-4 md:mb-8 text-white max-w-2xl sm:max-w-3xl drop-shadow-2xl tracking-tight [text-shadow:_0_2px_15px_rgb(0_0_0_/_70%)]">
                 {SLIDES[currentSlide].title.split('\n').map((line, i) => <div key={i}>{line}</div>) }
               </h1>
               <Link 
                 to="/experience" 
-                className="inline-flex items-center text-secondary hover:text-white uppercase tracking-[0.2em] text-xs md:text-sm font-semibold transition-colors drop-shadow-md"
+                className="inline-flex items-center text-secondary hover:text-white uppercase tracking-[0.2em] text-xs md:text-sm font-semibold transition-colors drop-shadow-md py-1"
               >
                 {SLIDES[currentSlide].linkText}
               </Link>
@@ -173,8 +193,8 @@ export default function Home() {
         </div>
 
         {/* Pagination & Arrows */}
-        <div className="absolute bottom-4 right-14 sm:bottom-6 sm:right-20 md:bottom-10 md:right-10 z-10 flex flex-col md:flex-row md:items-center items-end space-y-2 md:space-y-0 md:space-x-12">
-          <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-6">
+        <div className="absolute bottom-6 right-6 sm:bottom-6 sm:right-10 md:bottom-10 md:right-10 z-10 flex items-center space-x-4 sm:space-x-6 md:space-x-12">
+          <div className="flex items-center space-x-2.5 sm:space-x-3 md:space-x-6">
             {SLIDES.map((_, i) => (
               <div 
                 key={i} 
@@ -186,20 +206,20 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div className="flex space-x-1 sm:space-x-2">
+          <div className="flex space-x-1.5 sm:space-x-2">
             <button 
               onClick={prevSlide}
-              className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors"
+              className="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors bg-black/30 backdrop-blur-sm md:bg-transparent"
               aria-label="Previous Slide"
             >
-              <ChevronLeft size={18} className="text-white/70 hover:text-white" />
+              <ChevronLeft size={18} className="text-white/80 hover:text-white" />
             </button>
             <button 
               onClick={nextSlide}
-              className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors"
+              className="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors bg-black/30 backdrop-blur-sm md:bg-transparent"
               aria-label="Next Slide"
             >
-              <ChevronRight size={18} className="text-white/70 hover:text-white" />
+              <ChevronRight size={18} className="text-white/80 hover:text-white" />
             </button>
           </div>
         </div>
@@ -218,7 +238,7 @@ export default function Home() {
                 <Link 
                   to="/experience" 
                   key={i} 
-                  className="flex-1 relative group cursor-pointer overflow-hidden border-b md:border-b-0 md:border-r border-[#ffffff15] last:border-b-0 md:last:border-r-0 min-h-[120px] md:min-h-0 md:h-full block"
+                  className="flex-1 relative group cursor-pointer overflow-hidden border-b md:border-b-0 md:border-r border-[#ffffff15] last:border-b-0 md:last:border-r-0 min-h-[130px] md:min-h-0 md:h-full block"
                 >
                   <img src={cat.image} className={`absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ${cat.position}`} referrerPolicy="no-referrer" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c10] via-black/40 to-transparent md:bg-gradient-to-t md:from-[#0b0c10] md:via-black/20 md:to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-700" />
@@ -229,12 +249,6 @@ export default function Home() {
                   </div>
                 </Link>
               ))}
-              
-              {/* Pagination indicators for categories overlay */}
-              <div className="absolute top-10 right-10 hidden md:flex space-x-2 z-40 bg-black/40 rounded-full">
-                <button className="w-10 h-10 flex items-center justify-center hover:text-white transition-colors text-white/50" aria-label="Previous Category"><ChevronLeft size={20} /></button>
-                <button className="w-10 h-10 flex items-center justify-center hover:text-white transition-colors text-white/50" aria-label="Next Category"><ChevronRight size={20} /></button>
-              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -283,8 +297,8 @@ export default function Home() {
 
       </div>
 
-      {/* Right Strip */}
-      <div className="w-12 md:w-20 border-l border-white/10 flex flex-col items-center justify-center h-full z-50 bg-black/50 backdrop-blur-md shrink-0">
+      {/* Right Strip (Desktop Only) */}
+      <div className="hidden md:flex md:w-20 border-l border-white/10 flex-col items-center justify-center h-full z-50 bg-black/50 backdrop-blur-md shrink-0">
         <div className="flex flex-col items-center space-y-12">
           {activePanel === 'categories' ? (
             <button onClick={() => setActivePanel('none')} className="flex items-center hover:text-white transition-colors group">
