@@ -87,7 +87,7 @@ export default function Experience() {
               className="group"
             >
               <h3 className="text-2xl md:text-3xl font-serif text-primary mb-4 flex items-start md:items-center">
-                <span className="text-secondary mr-4 tex-lg font-sans font-light mt-1 md:mt-0">{(idx + 1).toString().padStart(2, '0')}</span>
+                <span className="text-secondary mr-4 text-lg font-sans font-light mt-1 md:mt-0">{(idx + 1).toString().padStart(2, '0')}</span>
                 {s.title}
               </h3>
               <p className="text-primary/70 font-light leading-relaxed text-lg pl-12 border-l border-transparent group-hover:border-secondary transition-colors duration-500">
