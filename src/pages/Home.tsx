@@ -283,13 +283,7 @@ export default function Home() {
                   About
                 </div>
 
-                <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 flex text-xs md:text-sm font-medium tracking-widest space-x-4 md:space-x-6 text-white/50">
-                   <span>01</span>
-                   <span className="text-secondary">02</span>
-                   <span>03</span>
-                   <div className="w-12 h-[1px] bg-white/20 mt-2.5 hidden md:block" />
-                   <span>04</span>
-                </div>
+
               </div>
             </motion.div>
           )}
