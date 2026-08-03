@@ -7,6 +7,12 @@ import { ChevronLeft, ChevronRight, X as CloseIcon, Instagram, Facebook, Twitter
 
 const SLIDES = [
   {
+    subtitle: "Luxury Bridal",
+    title: "Curating Flawless Bridal Looks Globally",
+    linkText: "READ MORE >",
+    image: IMAGES.heroSlides[0]
+  },
+  {
     subtitle: "Editorial",
     title: "Captivating Looks for Unforgettable Nights",
     linkText: "READ MORE >",
@@ -29,12 +35,6 @@ const SLIDES = [
     title: "Uncompromising Experience Anywhere",
     linkText: "READ MORE >",
     image: IMAGES.heroSlides[3]
-  },
-  {
-    subtitle: "Luxury Bridal",
-    title: "Curating Flawless Bridal Looks Globally",
-    linkText: "READ MORE >",
-    image: IMAGES.heroSlides[0]
   }
 ];
 
@@ -59,6 +59,15 @@ export default function Home() {
       document.body.style.overflow = 'unset';
     };
   }, []);
+
+  // Auto-scroll / Auto-play hero slides every 5 seconds
+  useEffect(() => {
+    if (activePanel !== 'none') return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [activePanel]);
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
@@ -147,20 +156,20 @@ export default function Home() {
             <img 
               src={SLIDES[currentSlide].image.landscape} 
               alt={SLIDES[currentSlide].title} 
-              className="absolute inset-0 w-full h-full object-cover object-[center_top] opacity-80 hidden md:block"
+              className="absolute inset-0 w-full h-full object-cover object-[center_top] opacity-100 hidden md:block"
               referrerPolicy="no-referrer"
               loading={currentSlide === 0 ? "eager" : "lazy"}
             />
             <img 
               src={SLIDES[currentSlide].image.mobile} 
               alt={SLIDES[currentSlide].title} 
-              className="absolute inset-0 w-full h-full object-cover object-[center_top] opacity-80 block md:hidden"
+              className="absolute inset-0 w-full h-full object-cover object-[center_top] opacity-100 block md:hidden"
               referrerPolicy="no-referrer"
               loading={currentSlide === 0 ? "eager" : "lazy"}
             />
-            {/* Dark overlay specifically to match NOVO dark tone */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c10] via-black/40 to-transparent opacity-95" />
+            {/* Concentrated left dark shadow for text readability; subject/bride on right stays 100% bright & clear */}
+            <div className="absolute inset-y-0 left-0 w-full md:w-3/5 bg-gradient-to-r from-black/85 via-black/50 to-transparent pointer-events-none z-[1]" />
+            <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#0b0c10] via-[#0b0c10]/60 to-transparent pointer-events-none z-[1]" />
           </motion.div>
         </AnimatePresence>
 
